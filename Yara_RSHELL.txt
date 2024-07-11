@@ -1,0 +1,41 @@
+rule rshell
+{
+	meta:		
+			sharing = "TLP:WHITE"
+			source = "BUNDESAMT FUER VERFASSUNGSSCHUTZ"
+			author = "Bundesamt fuer Verfassungsschutz"
+			description = "Yara rule to detect RSHELL of APT27"
+			category = "MALWARE"
+			malware = "RSHELL / SYSUPDATE"
+
+        strings:
+                      	$str1 = "cmd" ascii wide
+                        $str2 = "type" ascii wide
+                	$str3 = "data" ascii wide
+                        $str4 = "subtype" ascii wide
+                        $str5 = "guid" ascii wide
+                        $str6 = "login" ascii wide
+                        $str7 = "hostname" ascii wide
+                        $str8 = "lan" ascii wide
+                        $str9 = "username" ascii wide
+                        $str10 = "version" ascii wide
+                        $str11 = "init" ascii wide
+                        $str12 = "file" ascii wide
+                        $str13 = "dir" ascii wide
+                        $str14 = "path" ascii wide
+                        $str15 = "down" ascii wide
+                        $str16 = "read" ascii wide
+                        $str17 = "upload" ascii wide
+                        $str18 = "write" ascii wide
+                        $str19 = "del" ascii wide
+                        $str20 = "%02x%02x%02x%02x-%02x%02x-%02x%02x-%02x%02x-%02x%02x%02x%02x%02x%" ascii wide
+                        $str21 = "HISTFILE" ascii wide
+                        $str22 = "vt100" ascii wide
+                        $str23 = "/proc/self/exe" ascii wide
+                        $str24 = "/tmp/guid" ascii wide
+                        $str25 = "%F %T" ascii wide
+                               
+        condition:
+                        filesize < 2MB and 21 of them
+                               
+}
